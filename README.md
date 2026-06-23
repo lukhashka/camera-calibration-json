@@ -90,35 +90,39 @@ where:
 
 Real camera lenses introduce geometric distortions that deviate from the ideal pinhole model.
 
-The distorted image coordinates are modeled using radial and tangential distortion coefficients:
+The radial and tangential distortion model is defined as:
 
 $$
-x_{\text{distorted}}
-=
-x
-\left(
-1
-+
-k_1 r^2
-+
-k_2 r^4
-+
-k_3 r^6
-\right)
-+
-2p_1xy
-+
-p_2(r^2 + 2x^2)
+x_{\text{distorted}} =
+x(1 + k_1r^2 + k_2r^4 + k_3r^6)
++ 2p_1xy
++ p_2(r^2 + 2x^2)
 $$
 
 where:
 
-- $k_1, k_2, k_3$ are radial distortion coefficients
-- $p_1, p_2$ are tangential distortion coefficients
-- $r^2 = x^2 + y^2$
+- $k_1, k_2, k_3$ — radial distortion coefficients
+- $p_1, p_2$ — tangential distortion coefficients
+- $r^2 = x^2 + y^2$ — squared distance from the optical center
+
+The calibration accuracy is evaluated using the reprojection error:
+
+$$
+e =
+\frac{1}{N}
+\sum_{i=1}^{N}
+\left\|
+\mathbf{x}_i - \hat{\mathbf{x}}_i
+\right\|_2
+$$
+
+where:
+
+- $\mathbf{x}_i$ — detected image point
+- $\hat{\mathbf{x}}_i$ — projected point after calibration
+- $N$ — number of calibration points
 
 The OpenCV calibration process estimates these parameters automatically from multiple checkerboard observations.
-
 ---
 
 ### Reprojection Error
