@@ -125,34 +125,30 @@ where:
 The OpenCV calibration process estimates these parameters automatically from multiple checkerboard observations.
 ---
 
-### Reprojection Error
+## Reprojection Error
 
-Calibration quality is evaluated using the mean reprojection error.
+Calibration quality is evaluated using the **mean reprojection error**.
 
-After estimating the calibration parameters, each known 3D point is projected back into the image plane and compared to its detected image position.
+After estimating the camera calibration parameters, each known 3D point is projected back onto the image plane. The projected points are then compared with their corresponding detected image positions.
 
-The mean reprojection error is:
+The mean reprojection error is defined as:
 
 $$
 e =
 \frac{1}{N}
 \sum_{i=1}^{N}
 \left\|
-\mathbf{x}_i
--
-\hat{\mathbf{x}}_i
+\mathbf{x}_i - \hat{\mathbf{x}}_i
 \right\|_2
 $$
 
 where:
 
-- $\mathbf{x}_i$ is the detected image point
-- $\hat{\mathbf{x}}_i$ is the projected image point using the estimated parameters
-- $N$ is the total number of calibration points
+- $\mathbf{x}_i$ — detected image point
+- $\hat{\mathbf{x}}_i$ — projected image point obtained from the calibration model
+- $N$ — total number of calibration points
 
-Lower reprojection error indicates higher calibration accuracy.
-
----
+A lower reprojection error indicates better camera parameter estimation and more accurate distortion correction.
 
 ## Setup & Dependencies
 
